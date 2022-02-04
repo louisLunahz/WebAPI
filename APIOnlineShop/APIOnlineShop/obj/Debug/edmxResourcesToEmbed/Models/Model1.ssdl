@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LouigisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="10" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="pass" Type="varchar" MaxLength="100" />
+    <Property Name="dateOfRegistration" Type="date" />
+    <Property Name="dateOfBirth" Type="date" />
+    <Property Name="shippingAddress" Type="varchar" MaxLength="100" />
+    <Property Name="billingAddress" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="10" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="pass" Type="varchar" MaxLength="50" />
+    <Property Name="dateOfRegistration" Type="date" />
+    <Property Name="dateOfBirth" Type="date" />
+    <Property Name="isAdmin" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Louigis.dbo.Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Items">
+    <Key>
+      <PropertyRef Name="id_product" />
+      <PropertyRef Name="id_shoppingCart" />
+    </Key>
+    <Property Name="quantity" Type="int" />
+    <Property Name="price" Type="money" />
+    <Property Name="id_product" Type="int" Nullable="false" />
+    <Property Name="id_shoppingCart" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="id_order" />
+    </Key>
+    <Property Name="id_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="order_date" Type="date" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="id_cart" Type="int" Nullable="false" />
+    <Property Name="id_customer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="brand" Type="varchar" MaxLength="100" />
+    <Property Name="model" Type="varchar" MaxLength="100" />
+    <Property Name="color" Type="varchar" MaxLength="100" />
+    <Property Name="price" Type="money" />
+    <Property Name="stock" Type="int" />
+    <Property Name="extraInfo" Type="varchar(max)" />
+    <Property Name="barcode" Type="varchar" MaxLength="12" />
+  </EntityType>
+  <EntityType Name="shoppingCarts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_customer" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Items_Products1">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Items_shoppingCart">
+    <End Role="shoppingCarts" Type="Self.shoppingCarts" Multiplicity="1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shoppingCarts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="id_shoppingCart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_Customers">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_shoppingCarts">
+    <End Role="shoppingCarts" Type="Self.shoppingCarts" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shoppingCarts">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="id_cart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_shoppingCart_Customers">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="shoppingCarts" Type="Self.shoppingCarts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="shoppingCarts">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LouigisModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="shoppingCarts" EntityType="Self.shoppingCarts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Items" EntityType="Self.Items" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Items].[quantity] AS [quantity], 
+    [Items].[price] AS [price], 
+    [Items].[id_product] AS [id_product], 
+    [Items].[id_shoppingCart] AS [id_shoppingCart]
+    FROM [dbo].[Items] AS [Items]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Items_Products1" Association="Self.FK_Items_Products1">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_shoppingCart" Association="Self.FK_Items_shoppingCart">
+      <End Role="shoppingCarts" EntitySet="shoppingCarts" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_Customers" Association="Self.FK_orders_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_shoppingCarts" Association="Self.FK_orders_shoppingCarts">
+      <End Role="shoppingCarts" EntitySet="shoppingCarts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_shoppingCart_Customers" Association="Self.FK_shoppingCart_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="shoppingCarts" EntitySet="shoppingCarts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

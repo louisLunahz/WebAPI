@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LouigisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="LouigisEnt" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="LouigisModel.Customer" />
+    <EntitySet Name="Employees" EntityType="LouigisModel.Employee" />
+    <EntitySet Name="Orders" EntityType="LouigisModel.Order" />
+    <EntitySet Name="Products" EntityType="LouigisModel.Product" />
+    <EntitySet Name="shoppingCarts" EntityType="LouigisModel.shoppingCart" />
+    <EntitySet Name="Items" EntityType="LouigisModel.Item" />
+    <AssociationSet Name="FK_orders_Customers" Association="LouigisModel.FK_orders_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_shoppingCart_Customers" Association="LouigisModel.FK_shoppingCart_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="shoppingCart" EntitySet="shoppingCarts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orders_shoppingCarts" Association="LouigisModel.FK_orders_shoppingCarts">
+      <End Role="shoppingCart" EntitySet="shoppingCarts" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_Products1" Association="LouigisModel.FK_Items_Products1">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_shoppingCart" Association="LouigisModel.FK_Items_shoppingCart">
+      <End Role="shoppingCart" EntitySet="shoppingCarts" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="dateOfRegistration" Type="DateTime" Precision="0" />
+    <Property Name="dateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="shippingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="billingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="LouigisModel.FK_orders_Customers" FromRole="Customer" ToRole="Order" />
+    <NavigationProperty Name="shoppingCarts" Relationship="LouigisModel.FK_shoppingCart_Customers" FromRole="Customer" ToRole="shoppingCart" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateOfRegistration" Type="DateTime" Precision="0" />
+    <Property Name="dateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="isAdmin" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id_order" />
+    </Key>
+    <Property Name="id_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_cart" Type="Int32" Nullable="false" />
+    <Property Name="id_customer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="LouigisModel.FK_orders_Customers" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="shoppingCart" Relationship="LouigisModel.FK_orders_shoppingCarts" FromRole="Order" ToRole="shoppingCart" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="brand" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="color" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="stock" Type="Int32" />
+    <Property Name="extraInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="barcode" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Items" Relationship="LouigisModel.FK_Items_Products1" FromRole="Product" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="shoppingCart">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id_customer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="LouigisModel.FK_shoppingCart_Customers" FromRole="shoppingCart" ToRole="Customer" />
+    <NavigationProperty Name="Orders" Relationship="LouigisModel.FK_orders_shoppingCarts" FromRole="shoppingCart" ToRole="Order" />
+    <NavigationProperty Name="Items" Relationship="LouigisModel.FK_Items_shoppingCart" FromRole="shoppingCart" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id_product" />
+      <PropertyRef Name="id_shoppingCart" />
+    </Key>
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="id_product" Type="Int32" Nullable="false" />
+    <Property Name="id_shoppingCart" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="LouigisModel.FK_Items_Products1" FromRole="Item" ToRole="Product" />
+    <NavigationProperty Name="shoppingCart" Relationship="LouigisModel.FK_Items_shoppingCart" FromRole="Item" ToRole="shoppingCart" />
+  </EntityType>
+  <Association Name="FK_orders_Customers">
+    <End Type="LouigisModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="LouigisModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_shoppingCart_Customers">
+    <End Type="LouigisModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="LouigisModel.shoppingCart" Role="shoppingCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="shoppingCart">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orders_shoppingCarts">
+    <End Type="LouigisModel.shoppingCart" Role="shoppingCart" Multiplicity="1" />
+    <End Type="LouigisModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shoppingCart">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="id_cart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Items_Products1">
+    <End Type="LouigisModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="LouigisModel.Item" Role="Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Items_shoppingCart">
+    <End Type="LouigisModel.shoppingCart" Role="shoppingCart" Multiplicity="1" />
+    <End Type="LouigisModel.Item" Role="Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shoppingCart">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="id_shoppingCart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
