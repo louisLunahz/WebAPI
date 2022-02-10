@@ -44,21 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authenticator.cs" />
+    <Compile Include="FavouritesOperations.cs" />
+    <Compile Include="PersonOperations.cs" />
     <Compile Include="CardOperations.cs" />
-    <Compile Include="ConsumeEventSync.cs" />
-    <Compile Include="Exceptions\AddressNotFoundException.cs" />
-    <Compile Include="Exceptions\DatabaseInsertionException.cs" />
-    <Compile Include="Exceptions\InvalidCredentialsException.cs" />
-    <Compile Include="Exceptions\InvalidProductException.cs" />
-    <Compile Include="Exceptions\NoValuesToInsertException.cs" />
-    <Compile Include="Exceptions\NullParameterException.cs" />
-    <Compile Include="Exceptions\ProductNotFoundException.cs" />
     <Compile Include="OrderOperations.cs" />
     <Compile Include="ProductOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingCartOperations.cs" />
-    <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>

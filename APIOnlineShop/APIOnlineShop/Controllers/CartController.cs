@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using LouigisSP.BO;
-using LouigisSP.BO;
 using LouigisSP.SL;
 using APIOnlineShop.models;
-using APIOnlineShop.utilities;
+using APIOnlineShop.Exceptions;
+using APIOnlineShop.BO.Exceptions;
 
 namespace APIOnlineShop.Controllers
 {
@@ -23,34 +23,28 @@ namespace APIOnlineShop.Controllers
         {
 
             if (addproductTocartRequest == null)
-                return BadRequest("request was expected");
-
+                throw new ArgumentNullException("No argument was given");
             int id_currentPerson = -1;
-            try
-            {
-                Validator validator = new Validator();
-                id_currentPerson = validator.getIdCurrentPerson();
-            }
-            catch(NoUserLoggedInException ex) {
-                return Content(HttpStatusCode.Unauthorized, "You are not allowed to perform that action ");
-            }
-          
+            Validator validator = new Validator();
+            id_currentPerson = validator.getIdCurrentPerson();
+
+
+
+
+
             ProductOperations productOperations = new ProductOperations();
             Product obj_product = productOperations.GetProductById(addproductTocartRequest.id_product);
 
             if (obj_product is null)
-                return BadRequest("Product does not exist or is not avaliable");
+                throw new ElementNotFoundException();
             if (obj_product.stock < addproductTocartRequest.quantity)
-                return BadRequest("Not enoug stock");
+                throw new InvalidDataException("Stock is not enough");
             ShoppingCartOperations shoppingCartOperations = new ShoppingCartOperations();
             IEnumerable<Cart> carts = shoppingCartOperations.GetAllCartsRelatedToOnePersonNotInTheOrdersTable(id_currentPerson);
             if (carts.Count() <= 0)
             {
-                bool wasCreated = shoppingCartOperations.CreateCartForPerson(id_currentPerson);
-                if (!wasCreated)
-                {
-                    return BadRequest("Error creating a cart for the customer");
-                }
+                shoppingCartOperations.CreateCartForPerson(id_currentPerson);
+
                 IEnumerable<Cart> carts2 = shoppingCartOperations.GetAllCartsRelatedToOnePersonNotInTheOrdersTable(id_currentPerson);
                 if (carts2.Count() == 1)
                 {
@@ -59,10 +53,9 @@ namespace APIOnlineShop.Controllers
                     AddItemToCart(obj_product, idCart, addproductTocartRequest.quantity);
                     return Ok();
                 }
-                else
-                {
-                    return BadRequest("Unable to add item to the cart");
-                }
+
+                throw new Exception("Could not create a cart for the customer");
+
             }
             else
             {
@@ -78,40 +71,22 @@ namespace APIOnlineShop.Controllers
 
         }
 
-      
+
         [HttpDelete]
         [Route("api/cart/deleteProductFromCart")]
         [Authorize]
-        public IHttpActionResult deleteProductFromCart( int id_item)
+        public IHttpActionResult deleteProductFromCart(int id_item)
         {
             int id_currentPerson = -1;
-            try {
-                Validator validator = new Validator();
-                id_currentPerson = validator.getIdCurrentPerson();
-            }
-            catch (NoUserLoggedInException ex)
-            {
-                return Content(HttpStatusCode.Unauthorized, "You are not allowed to perform that action ");
-            }
-         
-
-
+            Validator validator = new Validator();
+            id_currentPerson = validator.getIdCurrentPerson();
             ShoppingCartOperations shoppingCartOperations = new ShoppingCartOperations();
             IEnumerable<Cart> carts = shoppingCartOperations.GetAllCartsRelatedToOnePersonNotInTheOrdersTable(id_currentPerson);
             if (carts.Count() < 1)
-                return BadRequest("Customer does not have a cart");
+                throw new ElementNotDeletedException("Item could not be deleted because the user still does not have a cart with products in it");
             int id_cart = carts.ElementAt(0).Id;
-            try
-            {
-                shoppingCartOperations.DeleteItemFromCart(id_item, id_cart);
-                return Ok("product deleted succesfully");
-
-            }
-            catch (Exception e)
-            {
-                return BadRequest("Error while deleting the product");
-            }
-
+            shoppingCartOperations.DeleteItemFromCart(id_item, id_cart);
+            return Ok("product deleted succesfully");
         }
 
         [HttpGet]
@@ -120,29 +95,22 @@ namespace APIOnlineShop.Controllers
         public IHttpActionResult GetAllItemsInCart()
         {
             int id_currentPerson = -1;
-            try
-            {
-                Validator validator = new Validator();
-                id_currentPerson = validator.getIdCurrentPerson();
-            }
-            catch (NoUserLoggedInException ex)
-            {
-                return Content(HttpStatusCode.Unauthorized, "You are not allowed to perform that action ");
-            }
+            Validator validator = new Validator();
+            id_currentPerson = validator.getIdCurrentPerson();
 
             ShoppingCartOperations shoppingCartOperations = new ShoppingCartOperations();
             IEnumerable<Cart> carts = shoppingCartOperations.GetAllCartsRelatedToOnePersonNotInTheOrdersTable(id_currentPerson);
-            if (carts.Count() >= 1) {
-               IEnumerable<Item> Listitems= shoppingCartOperations.GetAllItemsInCart(carts.ElementAt(0).Id);
+            if (carts.Count() >= 1)
+            {
+                IEnumerable<Item> Listitems = shoppingCartOperations.GetAllItemsInCart(carts.ElementAt(0).Id);
                 return Ok(Listitems);
             }
             else
-            {
-                return Ok("no items in card");
-            }
+                throw new ElementNotFoundException("No items were found for customer with id: "+ id_currentPerson);
+            
         }
 
-       
+
 
 
 
@@ -150,16 +118,8 @@ namespace APIOnlineShop.Controllers
         {
 
             ShoppingCartOperations shoppingCartOperations = new ShoppingCartOperations();
-            try
-            {
-                shoppingCartOperations.InsertItem(product, id_cart, quantity);
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
+            shoppingCartOperations.InsertItem(product, id_cart, quantity);
+            return true;
         }
 
 

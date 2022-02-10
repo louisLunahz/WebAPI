@@ -8,11 +8,12 @@ using System.Web.Http;
 using System.Data.Entity;
 using LouigisSP.BO;
 using LouigisSP.SL;
+using APIOnlineShop.BO.Exceptions;
 using APIOnlineShop.models;
 
 namespace APIOnlineShop.Controllers
 {
-    
+
     public class ProductController : ApiController
     {
         // GET: api/Product
@@ -21,36 +22,28 @@ namespace APIOnlineShop.Controllers
 
             IEnumerable<Product> listProducts = null;
             ProductOperations productOperations = new ProductOperations();
-            //return all the products
-            try
-            {
-
-                listProducts = productOperations.GetAllProducts();
-                    return Ok(listProducts);
-
-
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            listProducts = productOperations.GetAllProducts();
+            return Ok(listProducts);
         }
 
-        // GET: api/Product/5
+        // GET: api/Product/5°
         public IHttpActionResult Get(int id)
         {
             ProductOperations productOperations = new ProductOperations();
-            try
-            {
-                Product product = productOperations.GetProductById(id);
-               
-                return Ok(product);
-            }
-            catch (Exception e)
-            {
-                return NotFound();
-            }
+            Product product = productOperations.GetProductById(id);
+            return Ok(product);
+        }
 
+        public IHttpActionResult Get(string pattern)
+        {
+            ProductOperations productOperations = new ProductOperations();
+            IEnumerable<Product> listProducts = productOperations.GetProductsThatMatch(pattern);
+            return Ok(listProducts);
+        }
+
+        public IHttpActionResult GetByCategory(string category)
+        {
+           throw new NotImplementedException();
         }
 
 
@@ -58,32 +51,22 @@ namespace APIOnlineShop.Controllers
         public IHttpActionResult Post(Product product)
         {
             ProductOperations productOperations = new ProductOperations();
-            try
-            {
-                productOperations.InsertProduct(product);
-                return Ok("product added successfully");
-            }catch (Exception e)
-            {
-                return BadRequest("could not insert the product"+ e.Message);           
-            }
+            productOperations.InsertProduct(product);
+            return Ok("product added successfully");
         }
 
         [Authorize(Roles = "Employee")]
         public IHttpActionResult Put(int id, Product product)
         {
-            if (id != product.id)
-                return BadRequest("Product's id must be the same as the one you are trying to update");
+            if (product is null)
+                throw new ArgumentNullException("Product can´t be null");
+            if (product.id != id)
+                throw new InvalidDataException("Id's does not match");
 
             ProductOperations productOperations = new ProductOperations();
-            try
-            {
-                productOperations.EditProduct(id, product);
-                return Ok("product eddited successfully");
-            }
-            catch (Exception e)
-            {
-                return BadRequest("could not insert the product" + e.Message);
-            }
+
+            productOperations.EditProduct(id, product);
+            return Ok("product eddited successfully");
         }
 
 

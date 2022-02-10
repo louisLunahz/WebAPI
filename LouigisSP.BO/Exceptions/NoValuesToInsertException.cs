@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LouigisSP.SL.Exceptions
+namespace APIOnlineShop.BO.Exceptions
 {
     public class NoValuesToInsertException : Exception
     {

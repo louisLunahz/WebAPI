@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Cors;
+using System.Web.Http.ExceptionHandling;
+using APIOnlineShop.Exceptions;
+using APIOnlineShop.App_Start;
 
 namespace APIOnlineShop
 {
@@ -11,10 +13,17 @@ namespace APIOnlineShop
     {
         public static void Register(HttpConfiguration config)
         {
-            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
-            config.EnableCors(cors);
-            config.MapHttpAttributeRoutes();
+
+            //var attribute = new System.Web.Http.Cors.EnableCorsAttribute(Configs.AllowedDomains,
+              //  "Content-Type, skip, Authorization", "GET, POST, PUT, DELETE, OPTIONS");  //domains, headers, methods - you could do the same for the other args.
+            //config.EnableCors(attribute); //global
+
+            // config.MessageHandlers.Add(new APIOnlineShop.Handlers.OptionsHttpMessageHandler());
             config.MessageHandlers.Add(new TokenValidationHandler());
+
+            config.MapHttpAttributeRoutes();
+
+            config.Services.Replace(typeof(IExceptionHandler),new  GlobalExceptionHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

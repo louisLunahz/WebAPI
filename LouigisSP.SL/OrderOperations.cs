@@ -1,11 +1,10 @@
 ﻿using LouigisSP.DL;
-using LouigisSP.SL.Exceptions;
+using LouigisSP.BO;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using APIOnlineShop.BO.Exceptions;
 
 namespace LouigisSP.SL
 {

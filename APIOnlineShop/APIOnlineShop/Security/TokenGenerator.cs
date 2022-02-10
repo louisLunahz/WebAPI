@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+
 namespace APIOnlineShop.Security
 {
     /// <summary>

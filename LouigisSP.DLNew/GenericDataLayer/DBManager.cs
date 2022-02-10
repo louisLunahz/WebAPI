@@ -137,7 +137,7 @@ namespace LouigisSP.DL
             }
         }
 
-        public static void Insert(string commandText, CommandType commandType, IDbDataParameter[] parameters)
+        public static void Insert(string commandText, CommandType commandType, IDbDataParameter[] parameters)   
         {
             using (var connection = database.CreateConnection())
             {

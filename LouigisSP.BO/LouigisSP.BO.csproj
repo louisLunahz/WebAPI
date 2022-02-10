@@ -45,12 +45,22 @@
     <Compile Include="Address.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Cart.cs" />
+    <Compile Include="Exceptions\DatabaseInsertionException.cs" />
+    <Compile Include="Exceptions\ElementNotDeletedException.cs" />
+    <Compile Include="Exceptions\InvalidCredentialsException.cs" />
+    <Compile Include="Exceptions\ActionNotAllowedException.cs" />
+    <Compile Include="Exceptions\NoValuesToInsertException.cs" />
+    <Compile Include="Exceptions\ElementNotFoundException.cs" />
+    <Compile Include="Exceptions\InvalidDataException.cs" />
     <Compile Include="Fileable.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\BusinessExceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

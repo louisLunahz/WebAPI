@@ -183,9 +183,7 @@ C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\New
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\Swashbuckle.Core.dll
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Net.Http.Formatting.dll
-C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Cors.dll
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Helpers.dll
-C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Http.Cors.dll
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Http.dll
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Http.WebHost.dll
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Mvc.dll
@@ -205,7 +203,6 @@ C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\Mic
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\Microsoft.IdentityModel.Logging.xml
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\Microsoft.IdentityModel.Tokens.xml
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Http.Cors.xml
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\Newtonsoft.Json.xml
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Net.Http.Formatting.xml
 C:\Users\louisNobody\source\repos\OnlineShop\APIOnlineShop\APIOnlineShop\bin\System.Web.Helpers.xml

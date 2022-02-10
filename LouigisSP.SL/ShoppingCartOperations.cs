@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using LouigisSP.BO;
 using LouigisSP.DL;
-using LouigisSP.SL.Exceptions;
 
 namespace LouigisSP.SL
 {
@@ -78,40 +77,24 @@ namespace LouigisSP.SL
         }
 
 
-        public bool CreateCartForPerson(int id_person) {
-            bool wasInserted = false;
-            
-                IDbDataParameter[] parameters = new IDbDataParameter[1];
-
-
-                parameters[0] = DBManager.CreateParameter("@id_person", id_person, DbType.Int32);
-                DBManager.Insert("insert into shopping_carts (id_person) values (@id_person)", commandType: CommandType.Text, parameters);
-                wasInserted = true;
-            
-
-            return wasInserted;
+        public void CreateCartForPerson(int id_person)
+        {
+            IDbDataParameter[] parameters = new IDbDataParameter[1];
+            parameters[0] = DBManager.CreateParameter("@id_person", id_person, DbType.Int32);
+            DBManager.Insert("insert into shopping_carts (id_person) values (@id_person)", commandType: CommandType.Text, parameters);
         }
 
         public void InsertItem(Product product, int id_cart, int quantity)
         {
             if (product is null)
-                throw new NullParameterException();
-            try
-            {
+                throw new ArgumentNullException();
+            
                 IDbDataParameter[] parameters = new IDbDataParameter[4];
                 parameters[0] = DBManager.CreateParameter("@quantity", quantity, DbType.Int32);
                 parameters[1] = DBManager.CreateParameter("@id_product", product.id, DbType.Int32);
                 parameters[2] = DBManager.CreateParameter("@id_shoppingCart", id_cart, DbType.Int32);
                 parameters[3] = DBManager.CreateParameter("@individual_total", product.price*quantity, DbType.Currency);
-
-
-
                 DBManager.Insert("insert into items(quantity, id_product, id_shoppingCart, individual_total) values (@quantity,@id_product, @id_shoppingCart, @individual_total)", commandType: CommandType.Text, parameters);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         public void DeleteItemFromCart(int id_item, int id_cart)
