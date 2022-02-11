@@ -10,6 +10,7 @@ using LouigisSP.BO;
 using LouigisSP.SL;
 using APIOnlineShop.BO.Exceptions;
 using APIOnlineShop.models;
+using APIOnlineShop.filters;
 
 namespace APIOnlineShop.Controllers
 {
@@ -17,6 +18,7 @@ namespace APIOnlineShop.Controllers
     public class ProductController : ApiController
     {
         // GET: api/Product
+      
         public IHttpActionResult Get()
         {
 

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="AntiForgeryTokenModel.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="Exceptions\DatabaseInsertionException.cs" />

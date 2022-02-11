@@ -13,10 +13,11 @@ using LouigisSP.BO;
 using LouigisSP.SL;
 using APIOnlineShop.BO.Exceptions;
 using System.Net.Http.Headers;
+using APIOnlineShop.filters;
 
 namespace APIOnlineShop.Controllers
 {
-    [AllowAnonymous]
+  
 
     public class personController : ApiController
     {
@@ -25,6 +26,7 @@ namespace APIOnlineShop.Controllers
 
         [HttpPost]
         [Route("api/person/authenticate")]
+      
         public HttpResponseMessage Authenticate(LoginRequest login)
         {
 
@@ -52,13 +54,14 @@ namespace APIOnlineShop.Controllers
             AuthResponse obj_authResponse = new AuthResponse(token, person, formToken);
 
             HttpResponseMessage response = Request.CreateResponse<AuthResponse>(HttpStatusCode.OK, obj_authResponse);
-            response.Headers.AddCookies(new[]
-            {
-            new CookieHeaderValue("X-XSRF-TOKEN", cookieToken )
-                {                    
-                    Secure = false
-                }
+            var cookie = new CookieHeaderValue("X-XSRF-TOKEN", cookieToken);
+            cookie.Secure = false;
+            
+            response.Headers.AddCookies(
+            new CookieHeaderValue[] {
+                cookie
              });
+
 
             return response;
         }
