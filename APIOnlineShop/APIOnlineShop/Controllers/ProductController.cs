@@ -11,6 +11,7 @@ using LouigisSP.SL;
 using APIOnlineShop.BO.Exceptions;
 using APIOnlineShop.models;
 using APIOnlineShop.filters;
+using System.Web.Http.Cors;
 
 namespace APIOnlineShop.Controllers
 {
@@ -18,7 +19,8 @@ namespace APIOnlineShop.Controllers
     public class ProductController : ApiController
     {
         // GET: api/Product
-      
+        // Allow CORS for all origins. (Caution!)
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult Get()
         {
 

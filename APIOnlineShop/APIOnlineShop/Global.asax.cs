@@ -8,6 +8,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
 using APIOnlineShop.Exceptions;
+using System.Web.Helpers;
+using System.Security.Claims;
 
 namespace APIOnlineShop
 {
@@ -15,7 +17,7 @@ namespace APIOnlineShop
     {
         protected void Application_Start()
         {
-            
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Email;
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

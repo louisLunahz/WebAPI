@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading;
 using Microsoft.IdentityModel.Tokens;
 
 namespace APIOnlineShop.Security
@@ -26,8 +28,9 @@ namespace APIOnlineShop.Security
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.Email, email),
                 new Claim(ClaimTypes.Role, rolname),
-                new Claim(ClaimTypes.NameIdentifier,id.ToString()),
+                new Claim(ClaimTypes.GivenName,id.ToString()),
             });
+            
 
             // create token to the user 
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();

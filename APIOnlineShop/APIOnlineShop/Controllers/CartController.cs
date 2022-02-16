@@ -10,6 +10,8 @@ using LouigisSP.SL;
 using APIOnlineShop.models;
 using APIOnlineShop.Exceptions;
 using APIOnlineShop.BO.Exceptions;
+using APIOnlineShop.filters;
+using System.Threading;
 
 namespace APIOnlineShop.Controllers
 {
@@ -91,9 +93,12 @@ namespace APIOnlineShop.Controllers
 
         [HttpGet]
         [Route("api/cart/GetAllItemsInCart")]
-        [Authorize]
+        //[Authorize]
+        [ValidateAntiForgeryTokenFilter]
+
         public IHttpActionResult GetAllItemsInCart()
         {
+           var identities= ClaimsPrincipal.Current.Identities.ToList();
             int id_currentPerson = -1;
             Validator validator = new Validator();
             id_currentPerson = validator.getIdCurrentPerson();

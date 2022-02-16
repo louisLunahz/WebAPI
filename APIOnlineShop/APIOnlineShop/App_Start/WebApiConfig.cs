@@ -15,8 +15,6 @@ namespace APIOnlineShop
     {
         public static void Register(HttpConfiguration config)
         {
-
-            //config.MessageHandlers.Add(new CSRFValidatorHandler());
             config.MessageHandlers.Add(new TokenValidationHandler());
 
             config.MapHttpAttributeRoutes();

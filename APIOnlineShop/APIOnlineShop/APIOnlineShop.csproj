@@ -207,6 +207,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="filters\ValidateAntiForgeryTokenFilter.cs" />
     <Compile Include="Handlers\CSRFValidatorHandler.cs" />
+    <Compile Include="models\API_Models\AntiForgeryTokenModel.cs" />
     <Compile Include="utilities\Configs.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -255,7 +256,6 @@
     <Compile Include="models\Receipt.cs" />
     <Compile Include="models\AuthResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\CSRFTokenGenerator.cs" />
     <Compile Include="Security\TokenGenerator.cs" />
     <Compile Include="Security\TokenValidationHandler.cs" />
     <Compile Include="utilities\GlobalExceptionHandler.cs" />

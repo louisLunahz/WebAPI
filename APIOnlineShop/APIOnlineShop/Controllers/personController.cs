@@ -14,6 +14,11 @@ using LouigisSP.SL;
 using APIOnlineShop.BO.Exceptions;
 using System.Net.Http.Headers;
 using APIOnlineShop.filters;
+using System.Web;
+using System.Web.Helpers;
+using APIOnlineShop.models.API_Models;
+using System.Threading;
+using System.Security.Principal;
 
 namespace APIOnlineShop.Controllers
 {
@@ -32,36 +37,41 @@ namespace APIOnlineShop.Controllers
 
             if (login == null)
                 throw new InvalidCredentialsException();
-            string email = login.email;
-            string password = login.password;
-            //call the service layer, which will search the customer with that same email and password
-            //and will return a customer which i then will return as a httpActionResult
+           
             PersonOperations authenticator = new PersonOperations();
-            Person person = authenticator.GetPersonByEmailAndPassword(Tuple.Create(email, password));
+            Person person = authenticator.GetPersonByEmailAndPassword(Tuple.Create(login.email, login.password));
             string rolename = null;
             if (person.Role == 1)
                 rolename = "Customer";
             if (person.Role == 2)
                 rolename = "Employee";
             int id = person.Id;
-            var token = TokenGenerator.GenerateTokenJwt(login.email, rolename, id);
-            string formToken;
+
+            string jwtToken = TokenGenerator.GenerateTokenJwt(person.Email, rolename, id);
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["XSRF-TOKEN"];
+
             string cookieToken;
-            IEnumerable<string> csrfToken = CSRFTokenGenerator.GetAntiForgeryToken();//first one is the form token and the second one is the cookie token
-            formToken = csrfToken.FirstOrDefault();
-            cookieToken = csrfToken.ElementAt(1);
+            string formToken;
+            AntiForgery.GetTokens(cookie == null ? "" : cookie.Value, out cookieToken, out formToken);
+            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
             person.Pass = null;
-            AuthResponse obj_authResponse = new AuthResponse(token, person, formToken);
-
+            AuthResponse obj_authResponse = new AuthResponse(jwtToken,person, formToken);
             HttpResponseMessage response = Request.CreateResponse<AuthResponse>(HttpStatusCode.OK, obj_authResponse);
-            var cookie = new CookieHeaderValue("X-XSRF-TOKEN", cookieToken);
-            cookie.Secure = false;
-            
-            response.Headers.AddCookies(
-            new CookieHeaderValue[] {
-                cookie
-             });
 
+
+            if (!string.IsNullOrEmpty(cookieToken))
+            {
+                response.Headers.AddCookies(new[]
+                {
+                    new CookieHeaderValue("XSRF-TOKEN", cookieToken)
+                     {
+                        Expires = DateTimeOffset.Now.AddMinutes(2),
+                        Path = "/; SameSite=None",
+                        Secure = true
+
+                     }
+                });
+            }
 
             return response;
         }
