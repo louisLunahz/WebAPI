@@ -22,12 +22,12 @@ using LougisSP.BO.Exceptions;
 namespace APIOnlineShop.Controllers
 {
 
-    [ValidateAntiForgeryTokenFilter]
+   [ValidateAntiForgeryTokenFilter]
     public class personController : ApiController
     {
         [HttpPost]
         [Route("api/person/authenticate")]
-      
+
         public HttpResponseMessage Authenticate(LoginRequest login)
         {
 
@@ -44,30 +44,9 @@ namespace APIOnlineShop.Controllers
             int id = person.Id;
 
             string jwtToken = JWTTokenGenerator.GenerateTokenJwt(person.Email, rolename, id);
-            HttpCookie cookie = HttpContext.Current.Request.Cookies["XSRF-TOKEN"];
-
-            string cookieToken;
-            string formToken;
-            AntiForgery.GetTokens(cookie == null ? "" : cookie.Value, out cookieToken, out formToken);
-            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
             person.Pass = null;
-            AuthResponse obj_authResponse = new AuthResponse(jwtToken,person, formToken);
+            AuthResponse obj_authResponse = new AuthResponse(jwtToken,person);
             HttpResponseMessage response = Request.CreateResponse<AuthResponse>(HttpStatusCode.OK, obj_authResponse);
-
-
-            if (!string.IsNullOrEmpty(cookieToken))
-            {
-                response.Headers.AddCookies(new[]
-                {
-                    new CookieHeaderValue("XSRF-TOKEN", cookieToken)
-                     {
-                        Expires = DateTimeOffset.Now.AddMinutes(10),
-                        Path = "/; SameSite=None",
-                        Secure = true
-
-                     }
-                });
-            }
 
             return response;
         }

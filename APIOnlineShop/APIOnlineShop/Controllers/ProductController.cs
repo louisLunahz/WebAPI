@@ -14,7 +14,7 @@ using LougisSP.BO.Exceptions;
 
 namespace APIOnlineShop.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [ValidateAntiForgeryTokenFilter]
     public class ProductController : ApiController
     {
         // GET: api/Product

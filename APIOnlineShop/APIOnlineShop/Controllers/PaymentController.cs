@@ -1,4 +1,5 @@
 ﻿using APIOnlineShop.Exceptions;
+using APIOnlineShop.filters;
 using LougisSP.BO.Exceptions;
 using LouigisSP.BO;
 using LouigisSP.SL;
@@ -11,6 +12,7 @@ using System.Web.Http;
 
 namespace APIOnlineShop.Controllers
 {
+    [ValidateAntiForgeryTokenFilter]
     public class PaymentController : ApiController
     {
         [HttpPost]

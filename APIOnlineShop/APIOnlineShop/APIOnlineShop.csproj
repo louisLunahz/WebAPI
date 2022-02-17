@@ -205,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\AntiforgeryController.cs" />
     <Compile Include="filters\ValidateAntiForgeryTokenFilter.cs" />
     <Compile Include="Handlers\CSRFValidatorHandler.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

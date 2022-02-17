@@ -22,6 +22,7 @@ namespace APIOnlineShop.Controllers
         [HttpPost]
         [Route("api/cart/AddProductToCart")]
         [Authorize]
+      
         public IHttpActionResult AddProductToCart(AddItemToCartRequest addproductTocartRequest)
         {
 

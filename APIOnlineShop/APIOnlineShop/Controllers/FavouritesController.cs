@@ -1,4 +1,5 @@
 ﻿using APIOnlineShop.Exceptions;
+using APIOnlineShop.filters;
 using LouigisSP.BO;
 using LouigisSP.SL;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace APIOnlineShop.Controllers
 {
+    [ValidateAntiForgeryTokenFilter]
     public class FavouritesController : ApiController
     {
         [HttpGet]

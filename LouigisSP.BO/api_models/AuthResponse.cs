@@ -12,13 +12,11 @@ namespace LougisSP.BO.api_models
         public string token { get; set; }
 
         public Person person { get; set; }
-        public string CSRFToken { get; set; }
 
-        public AuthResponse(string token, Person person, string CSRFToken)
+        public AuthResponse(string token, Person person)
         {
             this.token = token;
             this.person = person;
-            this.CSRFToken = CSRFToken;
         }
     }
 }
