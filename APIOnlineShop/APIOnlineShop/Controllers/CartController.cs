@@ -7,14 +7,15 @@ using System.Security.Claims;
 using System.Web.Http;
 using LouigisSP.BO;
 using LouigisSP.SL;
-using APIOnlineShop.models;
 using APIOnlineShop.Exceptions;
-using APIOnlineShop.BO.Exceptions;
 using APIOnlineShop.filters;
 using System.Threading;
+using LougisSP.BO.api_models;
+using LougisSP.BO.Exceptions;
 
 namespace APIOnlineShop.Controllers
 {
+    [ValidateAntiForgeryTokenFilter]
     public class CartController : ApiController
     {
 
@@ -94,7 +95,7 @@ namespace APIOnlineShop.Controllers
         [HttpGet]
         [Route("api/cart/GetAllItemsInCart")]
         [Authorize]
-        [ValidateAntiForgeryTokenFilter]
+       
 
         public IHttpActionResult GetAllItemsInCart()
         {

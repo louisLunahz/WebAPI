@@ -1,11 +1,10 @@
-﻿using APIOnlineShop.Security;
+﻿using APIOnlineShop.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using APIOnlineShop.Exceptions;
-using APIOnlineShop.Utilities;
 using System.Web.Http.Cors;
 using APIOnlineShop.Handlers;
 
@@ -15,7 +14,7 @@ namespace APIOnlineShop
     {
         public static void Register(HttpConfiguration config)
         {
-            config.MessageHandlers.Add(new TokenValidationHandler());
+            config.MessageHandlers.Add(new JWTTokenValidationHandler());
 
             config.MapHttpAttributeRoutes();
 

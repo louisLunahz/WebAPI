@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.IdentityModel.Tokens;
 
-namespace APIOnlineShop.Security
+namespace APIOnlineShop.Handlers
 {
     /// <summary>
     /// Token validator for Authorization Request using a DelegatingHandler
     /// </summary>
-    internal class TokenValidationHandler : DelegatingHandler
+    internal class JWTTokenValidationHandler : DelegatingHandler
     {   
         private static bool TryRetrieveToken(HttpRequestMessage request, out string token)
         {

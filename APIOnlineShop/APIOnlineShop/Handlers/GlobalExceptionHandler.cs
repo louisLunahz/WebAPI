@@ -10,7 +10,7 @@ using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Results;
 using System.Web.Http;
 
-namespace APIOnlineShop.Exceptions
+namespace APIOnlineShop.Handlers
 {
     public class GlobalExceptionHandler : ExceptionHandler
     {

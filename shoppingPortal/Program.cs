@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using LouigisSP.DL;
 using LouigisSP.BO;
 using System.Data;
-using APIOnlineShop.BO.Exceptions;
 
 namespace shoppingPortal
 {

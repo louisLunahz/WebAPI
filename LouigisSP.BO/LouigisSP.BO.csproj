@@ -44,6 +44,10 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="AntiForgeryTokenModel.cs" />
+    <Compile Include="api_models\AddItemToCartRequest.cs" />
+    <Compile Include="api_models\AntiForgeryTokenModel.cs" />
+    <Compile Include="api_models\AuthResponse.cs" />
+    <Compile Include="api_models\LoginRequest.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="Exceptions\DatabaseInsertionException.cs" />
@@ -60,8 +64,6 @@
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\BusinessExceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

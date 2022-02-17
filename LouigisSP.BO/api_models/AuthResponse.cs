@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 
-namespace APIOnlineShop.models
+namespace LougisSP.BO.api_models
 {
     public class AuthResponse
     {

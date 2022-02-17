@@ -3,8 +3,7 @@ using LouigisSP.BO;
 using System;
 using System.Collections.Generic;
 using System.Data;
-
-using APIOnlineShop.BO.Exceptions;
+using LougisSP.BO.Exceptions;
 
 namespace LouigisSP.SL
 {

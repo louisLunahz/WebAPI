@@ -8,10 +8,9 @@ using System.Web.Http;
 using System.Data.Entity;
 using LouigisSP.BO;
 using LouigisSP.SL;
-using APIOnlineShop.BO.Exceptions;
-using APIOnlineShop.models;
 using APIOnlineShop.filters;
 using System.Web.Http.Cors;
+using LougisSP.BO.Exceptions;
 
 namespace APIOnlineShop.Controllers
 {

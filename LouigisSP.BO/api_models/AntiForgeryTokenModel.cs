@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace APIOnlineShop.models.API_Models
+namespace LougisSP.BO.api_models
 {
     public class AntiForgeryTokenModel
     {

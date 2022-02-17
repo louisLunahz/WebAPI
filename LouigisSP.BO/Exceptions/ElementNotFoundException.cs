@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIOnlineShop.BO.Exceptions
+namespace LougisSP.BO.Exceptions
 {
     public class ElementNotFoundException : Exception
     {

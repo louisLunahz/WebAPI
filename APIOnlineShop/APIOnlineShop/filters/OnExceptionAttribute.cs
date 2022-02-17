@@ -1,5 +1,4 @@
-﻿using APIOnlineShop.BO;
-using APIOnlineShop.BO.Exceptions;
+﻿using LougisSP.BO.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
 
-namespace APIOnlineShop.Exceptions
+namespace APIOnlineShop.filters
 {
     public class OnExceptionAttribute : ExceptionFilterAttribute, IExceptionFilter
     {

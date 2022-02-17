@@ -5,13 +5,13 @@ using System.Security.Principal;
 using System.Threading;
 using Microsoft.IdentityModel.Tokens;
 
-namespace APIOnlineShop.Security
+namespace APIOnlineShop.Handlers
 {
     /// <summary>
     /// JWT Token generator class using "secret-key"
     /// more info: https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
     /// </summary>
-    internal static class TokenGenerator
+    internal static class JWTTokenGenerator
     {
         public static string GenerateTokenJwt(string email, string rolname, int id)
         {

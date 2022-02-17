@@ -1,6 +1,5 @@
 ﻿using LouigisSP.BO;
 using LouigisSP.DL;
-using APIOnlineShop.BO.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;

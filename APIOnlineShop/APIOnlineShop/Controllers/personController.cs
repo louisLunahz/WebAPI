@@ -6,29 +6,25 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
-using APIOnlineShop.models;
-using APIOnlineShop.Security;
+using APIOnlineShop.Handlers;
 using APIOnlineShop.Exceptions;
 using LouigisSP.BO;
 using LouigisSP.SL;
-using APIOnlineShop.BO.Exceptions;
 using System.Net.Http.Headers;
 using APIOnlineShop.filters;
 using System.Web;
 using System.Web.Helpers;
-using APIOnlineShop.models.API_Models;
 using System.Threading;
 using System.Security.Principal;
+using LougisSP.BO.api_models;
+using LougisSP.BO.Exceptions;
 
 namespace APIOnlineShop.Controllers
 {
-  
 
+    [ValidateAntiForgeryTokenFilter]
     public class personController : ApiController
     {
-
-
-
         [HttpPost]
         [Route("api/person/authenticate")]
       
@@ -47,7 +43,7 @@ namespace APIOnlineShop.Controllers
                 rolename = "Employee";
             int id = person.Id;
 
-            string jwtToken = TokenGenerator.GenerateTokenJwt(person.Email, rolename, id);
+            string jwtToken = JWTTokenGenerator.GenerateTokenJwt(person.Email, rolename, id);
             HttpCookie cookie = HttpContext.Current.Request.Cookies["XSRF-TOKEN"];
 
             string cookieToken;

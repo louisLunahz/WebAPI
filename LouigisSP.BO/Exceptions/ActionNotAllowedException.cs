@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace APIOnlineShop.BO.Exceptions
+namespace LougisSP.BO.Exceptions
 {
     public class ActionNotAllowedException : Exception
     {

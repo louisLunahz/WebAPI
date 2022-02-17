@@ -207,8 +207,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="filters\ValidateAntiForgeryTokenFilter.cs" />
     <Compile Include="Handlers\CSRFValidatorHandler.cs" />
-    <Compile Include="models\API_Models\AntiForgeryTokenModel.cs" />
-    <Compile Include="utilities\Configs.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -250,15 +248,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="models\LoginRequest.cs" />
-    <Compile Include="models\AddItemToCartRequest.cs" />
-    <Compile Include="models\Receipt.cs" />
-    <Compile Include="models\AuthResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Handlers\TokenGenerator.cs" />
-    <Compile Include="Handlers\TokenValidationHandler.cs" />
-    <Compile Include="utilities\GlobalExceptionHandler.cs" />
-    <Compile Include="utilities\OnExceptionAttribute.cs" />
+    <Compile Include="Handlers\JWTTokenGenerator.cs" />
+    <Compile Include="Handlers\JWTTokenValidationHandler.cs" />
+    <Compile Include="Handlers\GlobalExceptionHandler.cs" />
+    <Compile Include="filters\OnExceptionAttribute.cs" />
     <Compile Include="utilities\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
