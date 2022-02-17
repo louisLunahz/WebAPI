@@ -65,7 +65,7 @@ namespace APIOnlineShop.Controllers
                 {
                     new CookieHeaderValue("XSRF-TOKEN", cookieToken)
                      {
-                        Expires = DateTimeOffset.Now.AddMinutes(2),
+                        Expires = DateTimeOffset.Now.AddMinutes(10),
                         Path = "/; SameSite=None",
                         Secure = true
 

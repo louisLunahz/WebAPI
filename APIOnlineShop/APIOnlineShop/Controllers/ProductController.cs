@@ -15,12 +15,12 @@ using System.Web.Http.Cors;
 
 namespace APIOnlineShop.Controllers
 {
-
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductController : ApiController
     {
         // GET: api/Product
         // Allow CORS for all origins. (Caution!)
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+      
         public IHttpActionResult Get()
         {
 
